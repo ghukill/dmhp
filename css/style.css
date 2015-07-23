@@ -1,0 +1,16 @@
+/* css for DMHP */
+.entry_form {
+	display:none;
+}
+
+.inline li {
+	display:inline;
+}
+
+.auto_item {
+	cursor:pointer;
+}
+
+.auto_item:hover {
+	background-color:yellow;
+}
