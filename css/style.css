@@ -1,6 +1,10 @@
 /* css for DMHP */
 .entry_form {
-	display:none;
+	/*display:none;*/
+	/*border: 1px solid #E1E1E1;
+  	border-radius: 4px;
+  	margin-bottom:10px;
+  	padding:10px;*/
 }
 
 .inline li {
@@ -13,4 +17,30 @@
 
 .auto_item:hover {
 	background-color:yellow;
+}
+
+.overlay {
+	background-color:rgba(0,0,0,0);
+}
+
+#current_affiliations {
+	display:none;
+}
+
+.currrent_affiliations_table{
+	display:none;
+}
+
+.affiliation_entry {
+	/*display:none;*/
+}
+
+#results {
+	display:none;
+	position:absolute;
+	background:white;
+	border: 1px solid #E1E1E1;
+  	border-radius: 4px;
+  	margin-bottom:10px;
+  	padding:10px;
 }

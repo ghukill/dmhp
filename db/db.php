@@ -2,21 +2,11 @@
 
 require 'config.php';
 
-// file for MySQL Statement
-$dbh = new PDO("mysql:host=$DB_HOST;dbname=$DB_DATABASE", $DB_USERNAME, $DB_PASSWORD, array( PDO::ATTR_PERSISTENT => false));
-
-
 // DEBUG
-print_r($_REQUEST);
+// print_r($_REQUEST);
 
-
-
-// react to 'table_name' field and act accordingly
-
-// address
-if ($_REQUEST['table_name'] == 'physician') {
-
-	echo "FIRING!";
+// physician add
+if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'physician'){
 
 	// prepare
 	$stmt = $dbh->prepare("INSERT INTO physician (name, dob, med_school_grad_year, med_specialty, philosophy, gender, source) VALUES (:name, :dob, :med_school_grad_year, :med_specialty, :philosophy, :gender, :source)");
@@ -31,25 +21,27 @@ if ($_REQUEST['table_name'] == 'physician') {
 	// execute	
 	$stmt->execute();
 
+	$lastId = $dbh->lastInsertId();
+	echo $lastId;
 }
 
-// address
-if ($_REQUEST['table_name'] == 'address') {
 
-	// prepare
-	$stmt = $dbh->prepare("INSERT INTO address (address) VALUES (:address)");
-	$stmt->bindParam(':address', $_REQUEST['address_address']);
+// affiliation add
+if (array_key_exists('add_affiliation', $_REQUEST)){
 
-	// execute	
-	$stmt->execute();
+	echo "adding affiliation...";
 
-}
+	// add address if need be
+	$address_id = handleAddress($dbh, $_REQUEST);
+	
+	// add place if need be
+	
 
-// hospital
-if ($_REQUEST['table_name'] == 'hospital') {
-
-	// prepare
-	$stmt = $dbh->prepare("INSERT INTO hospital (name, address_id) VALUES (:name, :address_id)");
+	// finally, add to affiliations
+	$target_table_id_array = explode("|",$_REQUEST['affiliation_type_combined']);
+	$target_table_id = $target_table_id_array[0];
+	$target_table_name = $target_table_id_array[1];
+	$stmt = $dbh->prepare("INSERT INTO affiliation ($target_table_id) VALUES (:target_table_id)");
 	$stmt->bindParam(':name', $_REQUEST['hospital_name']);
 	$address_id = handleAddress($dbh, $_REQUEST);
 	$stmt->bindParam(':address_id', $address_id, PDO::PARAM_INT);
@@ -81,6 +73,34 @@ function handleAddress($dbh, $args){
 
 }
 
+
+
+
+// // address
+// if ($_REQUEST['table_name'] == 'address') {
+
+// 	// prepare
+// 	$stmt = $dbh->prepare("INSERT INTO address (address) VALUES (:address)");
+// 	$stmt->bindParam(':address', $_REQUEST['address_address']);
+
+// 	// execute	
+// 	$stmt->execute();
+
+// }
+
+// // hospital
+// if ($_REQUEST['table_name'] == 'hospital') {
+
+// 	// prepare
+// 	$stmt = $dbh->prepare("INSERT INTO hospital (name, address_id) VALUES (:name, :address_id)");
+// 	$stmt->bindParam(':name', $_REQUEST['hospital_name']);
+// 	$address_id = handleAddress($dbh, $_REQUEST);
+// 	$stmt->bindParam(':address_id', $address_id, PDO::PARAM_INT);
+
+// 	// execute	
+// 	$stmt->execute();
+
+// }
 
 
 
