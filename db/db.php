@@ -29,26 +29,38 @@ if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'phy
 // affiliation add
 if (array_key_exists('add_affiliation', $_REQUEST)){
 
+	/*
+	Can't seem to capture physician id...
+	*/
+
 	echo "adding affiliation...";
+
+	print_r($_REQUEST);
+	$_REQUEST['physician_id'] = 20;
+
 
 	// add address if need be
 	$address_id = handleAddress($dbh, $_REQUEST);
-	
-	// add place if need be
-	
 
+	// add place name (NEEDS TO BE DONE, similar to handleAddress)
+	// what is a good name for "place", location entity?
+
+	
 	// finally, add to affiliations
 	$target_table_id_array = explode("|",$_REQUEST['affiliation_type_combined']);
 	$target_table_id = $target_table_id_array[0];
-	$target_table_name = $target_table_id_array[1];
-	$stmt = $dbh->prepare("INSERT INTO affiliation ($target_table_id) VALUES (:target_table_id)");
-	$stmt->bindParam(':name', $_REQUEST['hospital_name']);
-	$address_id = handleAddress($dbh, $_REQUEST);
-	$stmt->bindParam(':address_id', $address_id, PDO::PARAM_INT);
+	$target_table_name = $target_table_id_array[1] . "_id";
+	$stmt = $dbh->prepare("INSERT INTO affiliation (`physician_id`, `$target_table_name`, `date_start`, `date_end`) VALUES (:physician_id, :target_table_id, :affiliation_date_start, :affiliation_date_end)");
+	$stmt->bindParam(':physician_id', $_REQUEST['physician_id'], PDO::PARAM_INT);
+	$stmt->bindParam(':target_table_id', $target_table_id, PDO::PARAM_INT);
+	$stmt->bindParam(':affiliation_date_start', $_REQUEST['affiliation_date_start'], PDO::PARAM_INT);
+	$stmt->bindParam(':affiliation_date_end', $_REQUEST['affiliation_date_end'], PDO::PARAM_INT);
 
 	// execute	
 	$stmt->execute();
 
+	// dump to see
+	echo $_REQUEST['physician_id'] . " / " . $target_table_id . " / " . $_REQUEST['affiliation_date_start'] . " / " . $_REQUEST['affiliation_date_end'];
 }
 
 
@@ -73,6 +85,27 @@ function handleAddress($dbh, $args){
 
 }
 
+
+function handlePlace($dbh, $args){
+
+	// if found_address_id is not NULL, add address_auto
+	if (array_key_exists('found_address_id', $args) && $args['found_address_id'] != 'NULL'){
+		return $args['found_address_id'];
+	}
+
+	// elseif, if address_auto not NULL, add to address table
+	else {
+		// prepare
+		$stmt = $dbh->prepare("INSERT INTO address (address) VALUES (:address)");
+		$stmt->bindParam(':address', $args['address_auto']);
+		// execute	
+		$stmt->execute();
+		$lastId = $dbh->lastInsertId();
+		return $lastId;
+	}
+
+
+}
 
 
 
