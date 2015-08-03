@@ -8,7 +8,7 @@ if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'phy
 	// ADD PHYS
 	// prepare
 	$stmt = $dbh->prepare("INSERT INTO physician (name, dob, med_school_grad_year, med_specialty, philosophy, gender, source) VALUES (:name, :dob, :med_school_grad_year, :med_specialty, :philosophy, :gender, :source)");
-	$stmt->bindParam(':name', $_REQUEST['physician_name']);
+	$stmt->bindParam(':name', $_REQUEST['physician_auto']);
 	$stmt->bindParam(':dob', $_REQUEST['physician_dob']);
 	$stmt->bindParam(':med_school_grad_year', $_REQUEST['physician_med_school_grad_year'], PDO::PARAM_INT);
 	$stmt->bindParam(':med_specialty', $_REQUEST['physician_med_specialty']);
@@ -38,10 +38,7 @@ if (array_key_exists('add_affiliation', $_REQUEST)){
 	$physician_id = $_REQUEST['physician_id'];
 	$address_id = handleAddress($dbh, $_REQUEST);
 	$place_id = handlePlace($dbh, $_REQUEST);
-	$physician_id = 11;
 	echo "$physician_id / $address_id / $place_id";
-
-
 
 	// finally, add to affiliations
 	$stmt = $dbh->prepare("INSERT INTO affiliation (`physician_id`, `affiliation_type`, `date_start`, `date_end`, `address_id`, `place_id`) VALUES (:physician_id, :affiliation_type, :affiliation_date_start, :affiliation_date_end, :address_id, :place_id)");

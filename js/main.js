@@ -17,19 +17,6 @@ $(document).ready(function() {
 }); 
 
 
-// function bindAffiliation(){
-//     $('#affiliation_entry').ajaxForm({
-//         success: success    
-//     }); 
-
-//     function success(data){
-//         console.log('form submitted');
-//         $("#affiliation_entry").css("color","green");
-//         $("#affiliation_msg").html("SET");
-//     }
-// }
-
-
 function bindAffiliationForm(){
     $('.affiliation_entry').ajaxForm({
         success: success    
@@ -37,10 +24,14 @@ function bindAffiliationForm(){
 
     function success(data){
         console.log('form submitted');
-        $(this).css("color","green");
+        
+        $("#affiliation_container #submit_button").remove();
+        $("#affiliation_container #another_button").show();
+        $("#affiliation_container .affiliation_entry").css("color","green");
+        $("#affiliation_container .affiliation_entry").addClass('submitted');
+
     }
 }
-
 
 
 function addAnotherAffiliation(){
@@ -76,7 +67,7 @@ function setPhysician(phys_id, phys_name){
 
     // set header
     $("#physician_entry .overlay").hide();
-    $("#physician_msg").html("Currently working on: <span style='color:orange;'>" + phys_name + "</span>");
+    $("#physician_msg").html("Currently working on: <a href='./person.php?id="+phys_id+"'>" + phys_name + "</a>");
 
 }
 

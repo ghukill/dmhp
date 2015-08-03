@@ -17,11 +17,11 @@
 }
 
 #current_affiliations {
-	display:none;
+	/*display:none;*/
 }
 
 .currrent_affiliations_table{
-	display:none;
+	/*display:none;*/
 }
 
 #affiliation_entry {
@@ -38,3 +38,22 @@
   	padding:10px;
 }
 
+.hidden {
+	display:none;
+}
+
+h5 {
+	color:orange;
+}
+
+.affiliation_entry{
+	padding:10px;
+}
+
+.submitted {
+	background-color:#DAFFE2;
+}
+
+#another_button {
+	display:none;
+}
