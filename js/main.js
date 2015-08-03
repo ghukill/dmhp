@@ -11,8 +11,9 @@ $(document).ready(function() {
         success: success    
     }); 
 
-    function success(data){        
-        setPhysician(data,$("#physician_auto").val());
+    function success(data){   
+        trimmed_phys_id = data.replace(/(\r\n|\n|\r)/gm,"");     
+        setPhysician(trimmed_phys_id, $("#physician_auto").val());
     }
 }); 
 
@@ -46,14 +47,15 @@ function generateAffiliation(phys_id){
     // clone, append, and bind
     var orig_form = $("#affiliation_entry");
     var clone_form = orig_form.clone();
-    console.log(clone_form.html());
     $("#affiliation_container").append(clone_form.html());
-    bindAffiliationForm();
-    bindAffiliationAutos();
 
     // update with phys_id
     $("#affiliation_container #physician_id").val(phys_id);
     $("#affiliation_container #affiliation_entry").fadeIn();
+
+    // bind
+    bindAffiliationForm();
+    bindAffiliationAutos();
 
 }
 

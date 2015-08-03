@@ -23,9 +23,6 @@ if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'phy
 	$physician_id = $dbh->lastInsertId();
 	echo trim($physician_id);
 
-	// reload page
-	header( "Location: ../index.php?physician_id=$physician_id" ) ;
-
 }
 
 
@@ -38,7 +35,7 @@ if (array_key_exists('add_affiliation', $_REQUEST)){
 	$physician_id = $_REQUEST['physician_id'];
 	$address_id = handleAddress($dbh, $_REQUEST);
 	$place_id = handlePlace($dbh, $_REQUEST);
-	echo "$physician_id / $address_id / $place_id";
+	echo "The magic number: $physician_id / $address_id / $place_id";
 
 	// finally, add to affiliations
 	$stmt = $dbh->prepare("INSERT INTO affiliation (`physician_id`, `affiliation_type`, `date_start`, `date_end`, `address_id`, `place_id`) VALUES (:physician_id, :affiliation_type, :affiliation_date_start, :affiliation_date_end, :address_id, :place_id)");

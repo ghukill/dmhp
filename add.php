@@ -139,7 +139,7 @@ require 'db/config.php';
 						</div>
 						<label for="affiliation.misc_notes">Misc. Notes</label>
 						<textarea class="u-full-width" placeholder="Any additional notes" id="affiliation.misc_notes" name="affiliation.misc_notes" ></textarea>
-						<input id="physician_id" type="hidden" name="phsyician_id" value="NULL"></input>
+						<input id="physician_id" type="hidden" name="physician_id" value="NULL"></input>
 						<input id="add_affiliation" type="hidden" name="add_affiliation" value="1"></input>
 						<input id="submit_button" class="button-primary" type="submit" value="Submit">
 						<button id="another_button" class="button-primary" onclick="addAnotherAffiliation(); return false;">Add Another?</button>
