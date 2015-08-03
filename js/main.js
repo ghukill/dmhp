@@ -10,10 +10,10 @@ $(document).ready(function() {
 
     function success(data){
         console.log('form submitted');
-        console.log(data);
         $("#physician_id").val(data);
-        $("#physician_entry").css("color","green");
-        $("#physician_msg").html("SET");
+        $("#physician_entry .overlay").fadeOut();
+        $("#physician_msg").html("set to: <span style='color:green;'>" + $("#physician_auto").val()  + "</span>");
+        $("#affiliation_entry").fadeIn();
     }
 }); 
 
@@ -32,4 +32,9 @@ $(document).ready(function() {
 }); 
 
 
+
+function addAnotherAffiliation(){
+    // clone form and remove original
+
+}
 

@@ -28,23 +28,28 @@ require 'db/config.php';
 			
 			<div class="row">
 				<div class="twelve columns">
-					<h2>Detroit Medical History Project</h2>
-					<p>This form is dedicated to entering information from digitized primary sources into a relational database that will serve as the underlying data and infrasturcture for the project.</p>
+					<a href="."><h2>Detroit Medical History Project</h2></a>
+					<p>This form is dedicated to entering information from digitized primary sources into a relational database that will serve as the underlying data and infrastructure for the project.</p>
 				</div>
 			</div>
 
 			<div id="physician_entry" class="entry_form">
-				<div class="overlay">
+				<div class="row">
+					<h4>Add / Locate Physician <span id="physician_msg" class="msg"></span></h4>
+				</div>
+					
 
-					<div class="row">
-						<h4>Physician <span id="physician_msg" class="msg"></span></h4>
-					</div>
+				<div class="overlay">					
 
 					<form action="db/db.php" method="POST">
 					  <div class="row">
 					    <div class="six columns">
-					      <label for="physician.name">Physician Name</label>
-					      <input class="u-full-width" type="text" placeholder="e.g. Avia Spencer" id="physician.name" name="physician.name">
+					     <!--  <label for="physician_name">Physician Name</label>
+					      <input class="u-full-width" type="text" placeholder="e.g. Avia Spencer" id="physician_name" name="physician_name"> -->
+					      <label for="physician.name">physician (attempts autocomplete)</label>
+						  <input class="u-full-width" type="text" physicianholder="start typing..." id="physician_auto" name="physician_auto">
+						  <div id="physician_auto_results" class="autocomplete_results"></div>
+						  <input type="hidden" name="found_physician_id" id="found_physician_id" value="NULL"></input>
 					    </div>
 					    <div class="six columns">
 					      <label for="physician.dob">Date of Birth (yyyy-mm-dd)</label>
@@ -91,7 +96,6 @@ require 'db/config.php';
 					</form>
 
 				</div>
-				<hr>
 			</div>
 
 
@@ -195,6 +199,7 @@ require 'db/config.php';
 						<input id="physician_id" type="hidden" name="phsyician_id" value="NULL"></input>
 						<input id="add_affiliation" type="hidden" name="add_affiliation" value="1"></input>
 						<input class="button-primary" type="submit" value="Submit">
+						<button class="button">Add Another?</button>
 					</form>
 
 				</div>

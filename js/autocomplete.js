@@ -15,14 +15,12 @@ $( document ).ready(function() {
 				keyword: keyword
 			} )
 			.done(function( data ) {
-				console.log('firing!');
 
 				// clear debris 
 				$('#place_auto_results').html('');
 				$("#found_place_id").val('NULL');
 
 				var results = jQuery.parseJSON(data);
-				console.log()
 
 				$(results).each(function(i) {
 					var row = results[i];
@@ -67,7 +65,6 @@ $( document ).ready(function() {
 				keyword: keyword
 			} )
 			.done(function( data ) {
-				console.log('firing!');
 
 				// clear debris 
 				$('#address_auto_results').html('');
@@ -77,7 +74,6 @@ $( document ).ready(function() {
 
 				$(results).each(function(i) {
 					var row = results[i];
-					console.log(row);
 					$('#address_auto_results').append('<div class="auto_item" id="'+row.id+'">' + row.address + '</div>');
 				})
 
@@ -102,6 +98,60 @@ $( document ).ready(function() {
     	})
         .focus(function() {		
     	    $("#address_auto_results").show();
+    	});
+});
+/* --------------------------------------------------------------------------------------------------------------------------------------------- */
+
+// physician
+/* --------------------------------------------------------------------------------------------------------------------------------------------- */
+$( document ).ready(function() {
+	$("#physician_auto").keyup(function() {
+		var keyword = $("#physician_auto").val();
+		if (keyword.length >= MIN_LENGTH) {
+			$.get( "db/autocomplete.php", { 
+				table_name: "physician",
+				table_column: "name",
+				keyword: keyword
+			} )
+			.done(function( data ) {
+
+				// clear debris 
+				$('#physician_auto_results').html('');
+				$("#found_physician_id").val('NULL');
+
+				var results = jQuery.parseJSON(data);
+
+				$(results).each(function(i) {
+					var row = results[i];
+					$('#physician_auto_results').append('<div class="auto_item" id="'+row.id+'">' + row.name + '</div>');
+				})
+
+			    $('.auto_item').click(function() {
+
+			    	// insert value
+			    	var text = $(this).html();
+			    	var physician_id = $(this).attr('id');
+			    	$('#physician_auto').val(text);
+
+			    	// set name on top, add to affiliation form
+			    	$("#physician_id").val(physician_id);
+			        $("#physician_entry .overlay").fadeOut();
+			        $("#physician_msg").html("set to: <span style='color:green;'>" + $("#physician_auto").val()  + "</span>");
+			        $("#affiliation_entry").fadeIn();
+			    	
+			    })
+
+			});
+		} else {
+			$('#physician_auto_results').html('');
+		}
+	});
+
+    $("#physician_auto").blur(function(){
+    		$("#physician_auto_results").fadeOut(500);
+    	})
+        .focus(function() {		
+    	    $("#physician_auto_results").show();
     	});
 });
 /* --------------------------------------------------------------------------------------------------------------------------------------------- */
