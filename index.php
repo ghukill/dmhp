@@ -18,7 +18,6 @@ require 'db/config.php';
 		<link rel="stylesheet" href="css/style.css">
 		<!--local js-->
 		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/autocomplete.js"></script>
 
 	</head>
 
@@ -35,7 +34,7 @@ require 'db/config.php';
 
 			<div id="physician_entry" class="entry_form">
 				<div class="row">
-					<h4>Add / Locate Physician <span id="physician_msg" class="msg"></span></h4>
+					<h4 id="physician_msg">Add / Locate Physician</h4>
 				</div>
 					
 
@@ -137,24 +136,13 @@ require 'db/config.php';
 						</table>
 					</div>
 				</div>
-				<hr>
+
 			</div>
 
-			
 
-
-			<!-- ADD AFFILS -->
-			<div id="affiliation_entry" class="entry_form">
-
-				<div class="row">
-					<div class="twelve columns">
-						<h4>Add Affiliation <span id="affiliation_msg" class="msg"></h4>
-					</div>
-				</div>
-
-				<!-- Generic -->
+			<!-- prototype #########################################################################################################################################-->
+			<div id="affiliation_entry" class="affiliation_entry">			
 				<div class="row affiliation_entry">		
-
 					<form action="db/db.php" method="POST">
 						<div class="twelve columns">
 							<label for="affiliation_type">Affiliation Type</label>				      
@@ -180,7 +168,6 @@ require 'db/config.php';
 								<input type="hidden" name="found_address_id" id="found_address_id" value="NULL"></input>
 							</div>
 						</div>
-
 						<div class="row">					    
 							<div class="six columns">
 								<label for="affiliation.date_start">Date Start</label>
@@ -191,20 +178,21 @@ require 'db/config.php';
 								<input class="u-full-width" type="text" placeholder="e.g. 1901" id="affiliation.date_end" name="affiliation.date_end" >
 							</div>
 						</div>
-
-
 						<label for="affiliation.misc_notes">Misc. Notes</label>
 						<textarea class="u-full-width" placeholder="Any additional notes" id="affiliation.misc_notes" name="affiliation.misc_notes" ></textarea>
-
 						<input id="physician_id" type="hidden" name="phsyician_id" value="NULL"></input>
 						<input id="add_affiliation" type="hidden" name="add_affiliation" value="1"></input>
 						<input class="button-primary" type="submit" value="Submit">
-						<button class="button">Add Another?</button>
+						<button class="button" onclick="addAnotherAffiliation(); return false;">Add Another?</button>
 					</form>
-
 				</div>
-
 			</div>
+			<!-- prototype #########################################################################################################################################-->
+
+
+			<!-- ADD AFFILS -->
+			<div id="affiliation_container"></div>
+
 
 	</body>
 

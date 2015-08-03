@@ -1,11 +1,4 @@
 /* css for DMHP */
-.entry_form {
-	/*display:none;*/
-	/*border: 1px solid #E1E1E1;
-  	border-radius: 4px;
-  	margin-bottom:10px;
-  	padding:10px;*/
-}
 
 .inline li {
 	display:inline;
@@ -45,6 +38,3 @@
   	padding:10px;
 }
 
-#physician_msg {
-	/*color:green;*/
-}
