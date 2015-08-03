@@ -3,16 +3,6 @@
 // Detroit Medical History Project
 require 'db/config.php';
 
-function populateAffilType($dbh){
-	// prepare
-	$stmt = $dbh->prepare("SELECT id, type FROM affiliation_type");	
-	// execute	
-	$stmt->execute();
-	$data = $stmt->fetchAll();
-	return $data;
-}
-
-
 ?>
 
 <html>
@@ -150,11 +140,11 @@ function populateAffilType($dbh){
 
 
 			<!-- ADD AFFILS -->
-			<div id="add_affiliation_entry" class="entry_form">
+			<div id="affiliation_entry" class="entry_form">
 
 				<div class="row">
 					<div class="twelve columns">
-						<h4>Add Affiliation</h4>
+						<h4>Add Affiliation <span id="affiliation_msg" class="msg"></h4>
 					</div>
 				</div>
 
@@ -163,30 +153,26 @@ function populateAffilType($dbh){
 
 					<form action="db/db.php" method="POST">
 						<div class="twelve columns">
-							<label for="affiliation_type_combined">Affiliation Type</label>				      
-							<select class="u-full-width" id="affiliation_type_combined" name="affiliation_type_combined">
-							<option value="NULL">select an affiliation type</option>
-							<?php
-								$data = populateAffilType($dbh);
-								foreach ($data as $row){
-									$id = $row['id'];
-									$type = $row['type'];
-									echo "<option value='$id|$type'>$type</option>";
-								} 
-							?>
+							<label for="affiliation_type">Affiliation Type</label>				      
+							<select class="u-full-width" id="affiliation_type" name="affiliation_type">
+								<option value="NULL">select an affiliation type</option>
+								<option value="home">Home</option>
+								<option value="medical_school">Medical School</option>
+								<option value="hospital">Hospital</option>
+								<option value="company">Company</option>
 							</select>
 						</div>
 						<div class="row">
 							<div class="six columns">
-								<label for="affiliation_name">Name (attempts autocomplete)</label>
-								<input class="u-full-width" type="text" placeholder="start typing..." id="affiliation_name" name="affiliation_name">
-								<div id="affiliation_name_results"></div>
-								<input type="hidden" name="found_affiliation_name" id="found_affiliation_name" value="NULL"></input>
+								<label for="place.name">Place (attempts autocomplete)</label>
+								<input class="u-full-width" type="text" placeholder="start typing..." id="place_auto" name="place_auto">
+								<div id="place_auto_results" class="autocomplete_results"></div>
+								<input type="hidden" name="found_place_id" id="found_place_id" value="NULL"></input>
 							</div>
 							<div class="six columns">
 								<label for="address.address">Address (attempts autocomplete)</label>
 								<input class="u-full-width" type="text" placeholder="start typing..." id="address_auto" name="address_auto">
-								<div id="address_auto_results"></div>
+								<div id="address_auto_results" class="autocomplete_results"></div>
 								<input type="hidden" name="found_address_id" id="found_address_id" value="NULL"></input>
 							</div>
 						</div>
@@ -215,63 +201,6 @@ function populateAffilType($dbh){
 
 			</div>
 
-
-
-			<!-- ADDRESS -->
-			<!-- <div id="address_entry" class="entry_form">
-
-				<div class="row">
-					<h4>Address <span id="physician_msg" class="msg" ></span></h4>
-				</div>
-
-				<form action="db/db.php" method="POST">
-				  <div class="row">				    
-				    <div class="six columns">
-				      <label for="address.address">Address String</label>
-				      <input class="u-full-width" type="text" placeholder="e.g. 03-15-1865" id="address.address" name="address.address">
-				    </div>
-				  </div>				  				  
-				  
-				  <input type="hidden" name="table_name" value="address"></input>
-				  <input class="button-primary" type="submit" value="Submit">
-
-				</form>
-
-			</div> -->
-
-
-			<!-- HOSPITAL -->
-			<!-- <div id="hospital_entry" class="entry_form">
-
-				<div class="row">
-					<h4>Hospital <span id="physician_msg" class="msg" ></span></h4>
-				</div>
-
-				<form action="db/db.php" method="POST">
-				  <div class="row">
-				    <div class="six columns">
-				      <label for="hospital.name">Name</label>
-				      <input class="u-full-width" type="text" placeholder="e.g. Rolling Pines Acres" id="hospital.name" name="hospital.name" >
-				    </div>
-				    <div class="six columns">
-				      <label for="address.address">Address (attempts autocomplete)</label>
-				      <input class="u-full-width" type="text" placeholder="start typing..." id="address_auto" name="address_auto">
-					  <div id="results"></div>
-					  <input type="hidden" name="found_address_id" id="found_address_id" value="NULL"></input>
-				    </div>
-				  <input type="hidden" name="table_name" value="physician"></input></div>
-
-
-				  <label for="hospital.misc_notes">Misc. Notes</label>
-				  <textarea class="u-full-width" placeholder="Any additional notes" id="hospital.misc_notes" name="hospital.misc_notes" ></textarea>
-				  
-				  <input type="hidden" name="table_name" value="hospital"></input>
-				  <input class="button-primary" type="submit" value="Submit">
-
-				</form>
-
-			</div>
- -->
 	</body>
 
 </html>
