@@ -69,21 +69,25 @@ $affiliations_array = $results;
 
 			<div class="row">
 				<div class="twelve columns">
-					<h4><?php echo $person_array['name']; ?> <span style="font-size:.5em;">(<a href="#" onclick="$('#physician_entry').fadeIn(); return false;">edit</a>)</span></h4>
+					<h4><?php echo $person_array['name']; ?></h4>
+				</div>
+
+				<div class="row">
+					<h5 id="physician_msg">Edit Physician <span style="font-size:.5em;">(<a href="#" onclick="$('#physician_entry').fadeToggle(); return false;">click to toggle</a>)</span></h5>
 				</div>
 
 				<div id="physician_entry" class="entry_form hidden">
-					<div class="row">
-						<h5 id="physician_msg">Edit Physician</h5>
-					</div>
-						
 
 					<div class="overlay">					
 
 						<form action="db/db.php" method="POST">
 						  <input type="hidden" name="found_physician_id" id="found_physician_id" value="<?php echo $physician_id; ?>"></input>
 
-						  <div class="row">						    
+						  <div class="row">	
+						  	<div class="six columns">
+							  <label for="physician_auto">physician name</label>
+							  <input class="u-full-width" type="text" placeholder="start typing..." id="physician_auto" name="physician_auto" value="<?php echo $person_array['name']; ?>">
+						    </div>
 						    <div class="six columns">
 						      <label for="physician.dob">Date of Birth (yyyy-mm-dd)</label>
 						      <input class="u-full-width" type="text" placeholder="e.g. 1865-03-15" id="physician.dob" name="physician.dob" value="<?php echo $person_array['dob']; ?>">
@@ -120,10 +124,10 @@ $affiliations_array = $results;
 					      </div>
 						    
 
-						   <label for="physician.misc_notes">Misc. Notes</label>
+						   <label for="physician.misc_notes">Add Misc. Notes</label>
 						  <textarea class="u-full-width" placeholder="Any additional notes" id="physician.misc_notes" name="physician.misc_notes"></textarea>
 						  
-						  <input type="hidden" name="table_name" value="physician"></input>
+						  <input type="hidden" name="table_name" value="physician_update"></input>
 						  <input class="button-primary" type="submit" value="Submit">
 
 						</form>
@@ -171,10 +175,27 @@ $affiliations_array = $results;
 
 			</div>
 
+			<div class="map">
+				<div class="row">
+					<div class="twelve columns">
+						<h5>Map of Affiliations <a href="#" style="font-size:.5em;" onclick="$('#map_container').fadeToggle(200); return false;">(click to toggle)</a></h5>
+					</div>
+				</div>
+				<div id="map_container" class="row">
+					<div class="twelve columns">
+						<p>Map here...</p>
+					</div>
+				</div>
+			</div>
+
+
 			
 		</div>	
 
 
 	</body>
+	<script type="text/javascript">
+		var update_physician = true; //prevents affiliation creation and physician setting
+	</script>
 	
 </html>

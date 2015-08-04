@@ -25,6 +25,31 @@ if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'phy
 
 }
 
+// physician update
+if (array_key_exists('table_name', $_REQUEST) && $_REQUEST['table_name'] == 'physician_update'){
+
+	print_r($_REQUEST);
+
+	// ADD PHYS
+	$stmt = $dbh->prepare("REPLACE INTO physician (id, name, dob, med_school_grad_year, med_specialty, philosophy, gender, source) VALUES (:found_physician_id, :name, :dob, :med_school_grad_year, :med_specialty, :philosophy, :gender, :source)");
+	$stmt->bindParam(':name', $_REQUEST['physician_auto']);
+	$stmt->bindParam(':dob', $_REQUEST['physician_dob']);
+	$stmt->bindParam(':med_school_grad_year', $_REQUEST['physician_med_school_grad_year'], PDO::PARAM_INT);
+	$stmt->bindParam(':med_specialty', $_REQUEST['physician_med_specialty']);
+	$stmt->bindParam(':philosophy', $_REQUEST['physician_philosophy']);
+	$stmt->bindParam(':gender', $_REQUEST['physician_gender']);
+	$stmt->bindParam(':source', $_REQUEST['physician_source']);
+	$stmt->bindParam(':found_physician_id', $_REQUEST['found_physician_id'], PDO::PARAM_INT);
+
+	// execute	
+	$stmt->execute();
+
+	// ADD MISC NOTE
+	$physician_id = $dbh->lastInsertId();
+	echo trim($physician_id);
+
+}
+
 
 // affiliation add
 if (array_key_exists('add_affiliation', $_REQUEST)){

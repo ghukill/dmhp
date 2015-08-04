@@ -12,8 +12,10 @@ $(document).ready(function() {
     }); 
 
     function success(data){   
-        trimmed_phys_id = data.replace(/(\r\n|\n|\r)/gm,"");     
-        setPhysician(trimmed_phys_id, $("#physician_auto").val());
+        trimmed_phys_id = data.replace(/(\r\n|\n|\r)/gm,"");
+        if (update_physician != true){
+            setPhysician(trimmed_phys_id, $("#physician_auto").val());
+        }     
     }
 }); 
 
@@ -69,7 +71,7 @@ function setPhysician(phys_id, phys_name){
 
     // set header
     $("#physician_entry .overlay").hide();
-    $("#physician_msg").html("Currently working on: <a href='./person.php?id="+phys_id+"'>" + phys_name + "</a>");
+    $("#physician_msg").html("Currently working on: <a href='./person.php?id="+phys_id+"'>" + phys_name + " (click to edit)</a>");
 
 }
 

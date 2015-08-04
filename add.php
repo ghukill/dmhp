@@ -28,7 +28,7 @@ require 'db/config.php';
 			<div class="row">
 				<div class="twelve columns">
 					<a href="."><h2>Detroit Medical History Project</h2></a>
-					<p>This form is dedicated to entering information from digitized primary sources into a relational database that will serve as the underlying data and infrastructure for the project.</p>
+					<p>This form is designed for quickly and easily entering information from digitized primary sources into a relational database that will serve as the underlying data and infrastructure for the project.</p>
 				</div>
 			</div>
 
